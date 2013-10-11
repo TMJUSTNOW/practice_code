@@ -27,9 +27,9 @@ class stack(object):
         min_list = self.min_list
         current_min = min_list.pop
         if (current_min < new_element):
-            self.min_list.push(current_min)
+            self.min_list.append(current_min)
         else:
-            self.min_list.push(new_element)
+            self.min_list.append(new_element)
 
         self.new_list.append(new_element)
 
@@ -39,10 +39,10 @@ class stack(object):
 
     def min(self):
         min_list = self.min_list
-        return min_list.pop
+        return min_list.pop()
 
 
-class stack_queue():  # make a queue out of stacks
+class stack_queue(object):  # make a queue out of stacks
     def __init__(self):
         self.new_stack = stack()
 
