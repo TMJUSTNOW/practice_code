@@ -15,6 +15,7 @@ class queue(object):
 class stack(object):
     def __init__(self):
         self.new_list = list()  # constructor same as []
+        self.min_list = list()
 
     def __str__(self):
         return str(self.new_list)
@@ -23,6 +24,13 @@ class stack(object):
         return len(self.new_list)
 
     def push(self, new_element):
+        min_list = self.min_list
+        current_min = min_list.pop
+        if (current_min < new_element):
+            self.min_list.push(current_min)
+        else:
+            self.min_list.push(new_element)
+
         self.new_list.append(new_element)
 
     def pop(self):
@@ -30,12 +38,16 @@ class stack(object):
         return self.new_list.pop(list_length - 1)
 
     def min(self):
-        return self.min_list[0]
+        min_list = self.min_list
+        return min_list.pop
 
 
 class stack_queue():  # make a queue out of stacks
     def __init__(self):
         self.new_stack = stack()
+
+    def __str__(self):
+        return str(self.new_stack)
 
     def push(self, new_element):
         self.new_stack.push(new_element)
@@ -53,9 +65,6 @@ class stack_queue():  # make a queue out of stacks
 
         return stack1.pop()
 
-    def __str__(self):
-        return str(self.new_stack)
-
 
 test_queue = stack_queue()
 test_queue.push(9)
@@ -69,3 +78,14 @@ print test_queue
 
 test_queue.pop()
 print test_queue
+
+test_stack = stack()
+test_stack.push(7)
+test_stack.push(6)
+test_stack.push(72)
+test_stack.push(-8)
+test_stack.push(0)
+
+print test_stack
+
+print test_stack.min
