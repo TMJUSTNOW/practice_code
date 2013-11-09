@@ -31,33 +31,46 @@ graph_dict2[13] = [7, 14]
 graph_dict2[14] = [8, 13]
 
 
-# current/target = key; path/visited = list of keys
-def traverse_graph(graph, target, path, vistited):
-    path_list = []
-    while(len(path) != 0):
-        if(path[-1] == target):
-            new_path = copy.deepcopy(path)
-            path_list.append(new_path)
-        available = graph[path[-1]]
-        print("path %s" % path)
-        # print("vistited %s" % vistited)
-        # print("available %s" % available)
-        for node in available:
-            if node in vistited:
-                # print("remove node %s" % node)
-                available.remove(node)
-                # print("available %s" % available)
+def traverse_graph(graph, target, start):
+    open_path_list = [[]]
+    open_path_list[0] = [start]
+    current_path = [start]
+    closed_node_list = []
+    found_path_list = []
+
+    while(len(open_path_list) != 0):
+
+        for path in open_path_list:
+            current_path = copy.deepcopy(path)
+            available = graph[current_path[-1]]
+            closed_node_list.append(current_path[-1])
+            print("curent_path %s" % current_path)
+            print("open_path_list %s" % open_path_list)
+            # print("closed_node_list %s" % closed_node_list)
+            print("available %s" % available)
+
+            open_path_list.remove(current_path)
+            for neighbor in available:
+                if neighbor not in closed_node_list:
+                    new_path = copy.deepcopy(current_path)
+                    new_path.append(neighbor)
+                    print("current_path %s" % current_path)
+                    print("new_path %s" % new_path)
+                    if(neighbor == target):  # found target
+                        found_path_list.append(new_path)
+                    open_path_list.append(new_path)
+                    print("neighbor added to closed_node %s" % neighbor)
+                    closed_node_list.append(neighbor)
         if len(available) > 0:
             next = available[0]
-            path.append(next)
-            vistited.append(next)
+            current_path.append(next)
+            closed_node_list.append(next)
             print("next %s" % next)
         else:
-            path.pop()
-    return path_list
+            current_path.pop()
+    return found_path_list
 
 g = graph_dict2
 target = 12
-start = [1]
-history = [1]
-print(traverse_graph(g, target, start, history))
+start = 1
+print(traverse_graph(g, target, start))
