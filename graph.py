@@ -37,30 +37,36 @@ def traverse_graph(graph, target, start):
     current_path = [start]
     closed_node_list = []
     found_path_list = []
+    print("\n\n\n")
 
     while(len(open_path_list) != 0):
 
         for path in open_path_list:
-            current_path = copy.deepcopy(path)
-            available = graph[current_path[-1]]
-            closed_node_list.append(current_path[-1])
-            print("curent_path %s" % current_path)
             print("open_path_list %s" % open_path_list)
+            current_path = copy.deepcopy(path)
+            # print("curent_path %s" % current_path)
+            closed_node_list.append(current_path[-1])
             # print("closed_node_list %s" % closed_node_list)
-            print("available %s" % available)
-
+            available = graph[current_path[-1]]
             open_path_list.remove(current_path)
+            print("current_path %s" % current_path)
+            print("open_path_list2 %s" % open_path_list)
+
             for neighbor in available:
                 if neighbor not in closed_node_list:
+                    print("available %s" % available)
+                    # print("current_path %s" % current_path)
                     new_path = copy.deepcopy(current_path)
                     new_path.append(neighbor)
-                    print("current_path %s" % current_path)
                     print("new_path %s" % new_path)
                     if(neighbor == target):  # found target
                         found_path_list.append(new_path)
+                        print("found target %s" % found_path_list)
                     open_path_list.append(new_path)
-                    print("neighbor added to closed_node %s" % neighbor)
                     closed_node_list.append(neighbor)
+                    print("neighbor added to closed_node %s" % neighbor)
+                    # print("closed_node_list %s" % closed_node_list)
+
         if len(available) > 0:
             next = available[0]
             current_path.append(next)
