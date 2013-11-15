@@ -1,6 +1,3 @@
-people = [{'name': 'Mary', 'height': 160},
-          {'name': 'Isla', 'height': 80},
-          {'name': 'Sam'}]
 
 """
 height_total = 0
@@ -17,3 +14,13 @@ if height_count > 0:
 # Rewrite the code above using map, reduce and filter
 
 # Expected answer: 120
+
+people = [{'name': 'Mary', 'height': 160},
+          {'name': 'Isla', 'height': 80},
+          {'name': 'Sam'}]
+
+height_people = filter(lambda person: 'height' in person, people)
+height_total = reduce(lambda a, x: a+x['height'], height_people, 0)
+height_avg = height_total / len(height_people)
+
+print height_avg
