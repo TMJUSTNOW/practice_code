@@ -71,6 +71,7 @@ def traverse_graph(graph, target, start):
                 if(neighbor == target):  # found target
                     found_path_list.append(new_path)
                     print("found target %s" % found_path_list)
+                    return found_path_list
                 open_path_list.append(new_path)
                 visited_node_list.append(neighbor)
                 print("neighbor added to closed_node %s" % neighbor)
