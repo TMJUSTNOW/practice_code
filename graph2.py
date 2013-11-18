@@ -29,12 +29,12 @@ graph_dict2[13] = [7, 14]
 graph_dict2[14] = [8, 13]
 
 
-def initialize_graph_dict3():
+def read_graph_dict3():
     graph_dict3 = {}
-    with open('connections.txt', 'r') as text_file:
-        for line in text_file:
-                graph_dict3_text = text_file.read()
-                split_line = line.split()
+    with open('connections.txt', 'r') as input_file:
+        for line in input_file:
+                graph_dict3_text = input_file.read()
+                split_line = line.split(' ')
 
                 if split_line[0] in graph_dict3_text:
                     graph_dict3[split_line[0]].append(split_line[1])
@@ -75,7 +75,7 @@ def traverse_graph(graph, start, target):
                 # print("added new path to queue %s" % open_path_queue[-1])
 
 
-g = initialize_graph_dict3()
+g = read_graph_dict3()
 target = 7777
 start = 1
 print(traverse_graph(g, start, target))
