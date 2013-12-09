@@ -1,1 +1,1 @@
-algorithms, data structures and other misc practice code
+algorithms, data structures, functional programming examples and other misc practice code
