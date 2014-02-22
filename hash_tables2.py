@@ -1,32 +1,4 @@
-class Dummy(object):
-    pass
-
-
-class HashTable(object):
-    dummy = Dummy()
-
-    def __init__(self):
-        self.size = 8
-        self._storage = [self.dummy for _ in range(self.size)]
-
-    def __repr__(self):
-        return str(self._storage)
-
-    def __setitem__(self, key, value):
-        hashed_key = hash(key)
-        index = hashed_key % self.size
-        item = (hashed_key, key, value)
-
-        if self._storage[index] is self.dummy:
-            self._storage[index] = LinkedList(item)
-        else:
-            self._storage[index].append(item)
-
-    def __getitem__(self, key):
-        hashed_key = hash(key)
-        index = hashed_key % self.size
-        value = self._storage[index].value[2]
-        return value
+from pprint import pprint, pformat
 
 
 class Node(object):
@@ -50,7 +22,7 @@ class LinkedList(object):
                 yield item.value
                 item = item.next
 
-        return f
+        return f()
 
     def append(self, value):
         self.last.next = Node(value)
@@ -83,3 +55,53 @@ class LinkedList(object):
             item = item.next
 
         return "[{}]".format(", ".join(reps))
+
+class Dummy(object):
+    pass
+
+class HashTable(object):
+    _dummy = Dummy()
+
+    def __init__(self):
+        self.size = 8
+        self.occupied = 0
+        self._storage = [self._dummy for _ in range(self.size)]
+
+    def __repr__(self):
+        return pformat(self._storage)
+
+    def __setitem__(self, key, value):
+        hashed_key = hash(key)
+        index = hashed_key % self.size
+        item = (hashed_key, key, value)
+
+        if self._storage[index] is self._dummy:
+            self.occupied += 1
+            # code to call resize if > 2/3 of self.size
+            self._storage[index] = LinkedList(item)
+        else:
+            self._storage[index].append(item)
+
+    def __getitem__(self, key):
+        hashed_key = hash(key)
+        index = hashed_key % self.size
+        items = self._storage[index]
+
+        if items is not self._dummy:
+            for _, itemkey, itemvalue in items:
+                if key == itemkey:
+                    return itemvalue
+
+        raise KeyError
+
+    # unworking delete code
+    #def __delitem__(self, key):
+    #    hashed_key = hash(key)
+    #    index = hashed_key % self.size
+    #    items = self._storage[index]
+    #
+    #    if items is not self._dummy:
+    #        for node in self._storage[index]:
+    #            _, itemkey, _ = node
+    #            if key == itemkey:
+    #                node.remove()
