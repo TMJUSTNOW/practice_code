@@ -9,7 +9,7 @@ if __name__ == '__main__':
     input_string = 'thecatisntthehat'
     board.fill_board(input_string)
     print(board)
-    target = 'tat'
+    target = 'tis'
 
     found = traverse_board(board, input_string, target, 'breadth')
     print(found)
