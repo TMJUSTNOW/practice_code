@@ -9,7 +9,7 @@ class Board(object):
         self.char_dict = {}
 
     def __str__(self):
-        print_board = []
+        print_board = ['\n']
         for i in range(0, len(self.board)):
             print_board.append(' ')
             print_board.append(str(self.board[i]))
@@ -29,7 +29,6 @@ class Board(object):
             if index >= self.width * self.height:
                 break
             self.board[index] = char
-
             # store char dict here
             self.add_to_char_dict(char, index)
 
@@ -94,7 +93,7 @@ def traverse_board(board, input_string, target, search_type='depth'):
     i = 0
     start = target[i]
 
-    if start in board.char_dict:
+    if start in board.char_dict and len(target) <= (board.height * board.width):
         for node in board.char_dict[start]:
             open_paths.put([node])
 
