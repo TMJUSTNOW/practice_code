@@ -94,29 +94,25 @@ def traverse_board(board, input_string, target, search_type='depth'):
     i = 0
     start = target[i]
 
-    for node in board.char_dict[start]:
-        open_paths.put([node])
+    if start in board.char_dict:
+        for node in board.char_dict[start]:
+            open_paths.put([node])
 
-    # for start_index in board.get_char_indices(start):
-    #     traverse_path(board.get_neighbors(start_index), [node])
+        # for start_index in board.get_char_indices(start):
+        #     traverse_path(board.get_neighbors(start_index), [node])
 
-    print('open_paths: {0}'.format(open_paths))
-    while len(open_paths) > 0 and i < len(target):
-        current_path = open_paths.get()
-        print('current_path: {0}'.format(current_path))
-        i = len(current_path)
-        nodes = board.get_neighbors(current_path[-1])
-        print('nodes: {0}'.format(nodes))
-        occurances = board.char_dict[target[i]]
-        print('occurances: {0}'.format(occurances))
-        available_nodes = set.intersection(set(occurances), set(nodes))
-        for node in available_nodes:
-            print('available_nodes: {0}'.format(available_nodes))
-            new_path = current_path + [node]
-            if len(new_path) == len(target):
-                found_target_path.append(new_path)
-            else:
+        while len(open_paths) > 0 and i < len(target):
+            current_path = open_paths.get()
+            i = len(current_path)
+            nodes = board.get_neighbors(current_path[-1])
+            occurances = board.char_dict[target[i]]
+            available_nodes = set.intersection(set(occurances), set(nodes))
+            for node in available_nodes:
                 if node not in current_path:
-                    open_paths.put(new_path)
-                    print('new_path: {0}'.format(new_path))
-    print('found path: {0}'.format(found_target_path))
+                    new_path = current_path + [node]
+                    if len(new_path) == len(target):
+                        found_target_path.append(new_path)
+                    else:
+                        open_paths.put(new_path)
+        return found_target_path
+    return False
