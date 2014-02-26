@@ -41,5 +41,5 @@ search returns:
 
     [[5, 6, 7], [9, 6, 7], [10, 6, 7]]
 
-* found the 'tis' 3 times in the board 
+* found 'tis' 3 times in the board 
     
